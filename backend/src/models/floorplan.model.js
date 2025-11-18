@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const floorplanSchema = new mongoose.Schema({
-    Project_Id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project',
-        required: true
-    },
+    // Project_Id: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Project',
+    //     required: true
+    // },
     plot: {
         length: { type: Number, required: true },
         width: { type: Number, required: true },
