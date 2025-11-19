@@ -140,7 +140,8 @@ const generator = asyncHandler(async (req, res) => {
 
     // console.log(createdProperty)
 
-    const prompt = `You are an architectural floorplan generator. 
+    const prompt = 
+    `You are an architectural floorplan generator. 
 Using ONLY the JSON data below, generate a COMPLETE, VALID SVG floorplan.
 
 JSON Input:
