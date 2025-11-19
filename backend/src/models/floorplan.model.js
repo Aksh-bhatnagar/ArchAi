@@ -9,7 +9,7 @@ const floorplanSchema = new mongoose.Schema({
     plot: {
         length: { type: Number, required: true },
         width: { type: Number, required: true },
-        facing: { type: String, enum: ['North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'], required: true, default: 'North' }
+        main_enterance: { type: String, enum: ['North', 'South', 'East', 'West', 'North-East', 'North-West', 'South-East', 'South-West'], required: true, default: 'North' }
     },
     house: {
         floor: { type: Number, required: true, default: 0 },
