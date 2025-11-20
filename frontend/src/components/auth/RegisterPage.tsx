@@ -4,6 +4,7 @@ import { Label } from '@radix-ui/react-label'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom'
+import toast, { Toaster } from "react-hot-toast"; 
 
 export default function RegisterPage() {
   const navigate = useNavigate()
@@ -37,27 +38,25 @@ export default function RegisterPage() {
 
       const data = await response.json()
 
+
       if (!response.ok) {
-        setError(data.message || "Something went wrong")
+        toast.error(data.message || "Login failed");
       } else {
-        setFormData({
-          firstname: "",
-          lastname: "",
-          email: "",
-          password: ""
-        })
-       setTimeout(() => {
-          navigate("/view")  // navigate to your view page
-        }, 1000)
+        toast.success("Logged in successfully!");
+        setTimeout(() => {
+          navigate("/view");
+        }, 800);
       }
     } catch (err) {
-      setError("Network error")
+      setError("Unable to register")
     } finally {
       setLoading(false)
     }
   }
 
   return (
+    <>
+    <Toaster position="top-right" />
     <div className="h-screen w-screen flex justify-center items-center bg-gray-100">
       <Card className="w-full max-w-sm bg-gray-800 text-white">
         <CardHeader>
@@ -75,7 +74,7 @@ export default function RegisterPage() {
                   required
                   value={formData.firstname}
                   onChange={handleChange}
-                />
+                  />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="lastname">Lastname (optional)</Label>
@@ -85,7 +84,7 @@ export default function RegisterPage() {
                   placeholder="Durden"
                   value={formData.lastname}
                   onChange={handleChange}
-                />
+                  />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -96,7 +95,7 @@ export default function RegisterPage() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                />
+                  />
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password">Password</Label>
@@ -107,19 +106,20 @@ export default function RegisterPage() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                />
+                  />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
           {error && <p className="text-red-500">{error}</p>}
-          <Button type="submit" onClick={handleSubmit} className="w-full !bg-blue-500 text-white" disabled={loading}>
+          <Button type="submit" onClick={handleSubmit} className="w-full !bg-white text-black" disabled={loading}>
             {loading ? "Registering..." : "Register"}
           </Button>
         </CardFooter>
       </Card>
     </div>
+    </>
   )
 }
 

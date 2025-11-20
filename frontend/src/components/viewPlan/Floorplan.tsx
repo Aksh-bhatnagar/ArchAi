@@ -122,7 +122,7 @@ export default function Floorplan() {
           <CardContent className="space-y-4">
             <div className="space-y-3">
               <div>
-                <Label htmlFor="length" className="pb-2">Length (ft)</Label>
+                <Label htmlFor="length" className="pb-2">Length</Label>
                 <Input
                   id="length"
                   type="number"
@@ -132,7 +132,7 @@ export default function Floorplan() {
               </div>
 
               <div>
-                <Label htmlFor="width" className="pb-2">Width (ft)</Label>
+                <Label htmlFor="width" className="pb-2">Width</Label>
                 <Input
                   id="width"
                   type="number"
