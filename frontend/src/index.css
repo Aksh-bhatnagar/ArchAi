@@ -183,4 +183,24 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
+
+  .falling-stars {
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(black, transparent) repeat;
+  background-size: 3px 3px;
+  animation: stars-fall 12s linear infinite;
+  opacity: 0.4;
+  filter: blur(1px);
+}
+
+@keyframes stars-fall {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(20%);
+  }
+}
+
 }
