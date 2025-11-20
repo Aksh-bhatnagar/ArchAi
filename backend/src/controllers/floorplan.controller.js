@@ -141,11 +141,11 @@ const generator = asyncHandler(async (req, res) => {
     // console.log(createdProperty)
 
     const prompt = 
-    `You are an architectural floorplan generator. 
+`You are an architectural floorplan generator. 
 Using ONLY the JSON data below, generate a COMPLETE, VALID SVG floorplan.
 
 JSON Input:
-${propertyData}
+${JSON.stringify(propertyData, null, 2)}
 
 ========================
 MANDATORY SVG RULES
@@ -165,8 +165,8 @@ MANDATORY SVG RULES
 Based on JSON:
 - house.living
 - house.kitchen
-- house.bedroom (2)
-- house.bathroom (1)
+- house.bedroom
+- house.bathroom
 
 You must:
 - Auto-generate room sizes based on available area.
@@ -192,7 +192,7 @@ Your output MUST contain:
 If not, regenerate until the SVG is fully drawn.
 
 8. NEVER RETURN EMPTY SVG.
- `
+`
 
 
     const response = await GenAI(prompt);
