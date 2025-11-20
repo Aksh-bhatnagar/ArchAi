@@ -126,7 +126,7 @@ export default function Floorplan() {
                 <Input
                   id="length"
                   type="number"
-                  value={plotLength}
+                  value={plotLength} 
                   onChange={(e) => setPlotLength(Number(e.target.value))}
                 />
               </div>

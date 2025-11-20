@@ -5,7 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 
 const registerUser = asyncHandler( async (req, res) => {
     // get user details from frontend
-    // validation - not empty
+    // validation - not empty 
     // check if your already exist: username,email
     // create user object - create entry in db
     // remove password and refresh token field from response
