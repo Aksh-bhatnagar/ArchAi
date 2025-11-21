@@ -6,7 +6,7 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="bg-gray-900 h-18 w-screen top-0 flex justify-between absolute">
+      <div className="bg-gray-900 h-18 w-screen top-0 flex justify-between absolute z-50">
           <h3 className="text-3xl p-4 font-bold text-blue-50">
             ArchAi
           </h3>

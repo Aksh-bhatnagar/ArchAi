@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import FallingStars from "../commons/Fallingstar";
+import "../../index.css"
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -61,8 +63,9 @@ export function LoginPage() {
   return (
     <>
       <Toaster position="top-right" />
-      <div className="h-screen w-screen flex justify-center items-center">
-        <Card className="w-full max-w-sm bg-gray-800 text-white">
+      <div className="relative h-screen w-screen flex justify-center items-center bg-slate-950 overflow-hidden">
+        <FallingStars />
+        <Card className="w-full max-w-sm bg-gray-800 text-white border-gray-700 z-10">
           <CardHeader>
             <CardTitle>Login to your account</CardTitle>
             <CardDescription>
@@ -81,6 +84,7 @@ export function LoginPage() {
                     required
                     value={formData.email}
                     onChange={handleChange}
+                    className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
                   />
                 </div>
 
@@ -93,6 +97,7 @@ export function LoginPage() {
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
+                    className="bg-gray-700 border-gray-600 text-white placeholder:text-gray-400"
                   />
                 </div>
               </div>

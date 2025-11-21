@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 
-type Props = {}
+export default function HomePage() {
+  const navigate = useNavigate();
 
-export default function HomePage({}: Props) {
-  return (
-    <div>HomePage</div>
-  )
+  useEffect(() => {
+    navigate("/register");
+  }, []);
+
+  return null;
 }

@@ -29,9 +29,9 @@ export default function Floorplan() {
   // House details
   const [floors, setFloors] = useState(0);
   // const [bhkType, setBhkType] = useState("2BHK");
-  const [bedrooms, setBedrooms] = useState(2);
-  const [bathrooms, setBathrooms] = useState(1);
-  const [kitchens, setKitchens] = useState(1);
+  const [bedrooms, setBedrooms] = useState(0);
+  const [bathrooms, setBathrooms] = useState(0);
+  const [kitchens, setKitchens] = useState(0);
   const [hasLiving, setHasLiving] = useState(true);
 
   // Preferences
