@@ -309,11 +309,11 @@ export default function Floorplan() {
       {/* ------- RIGHT OUTPUT AREA ------- */}
       <div className="flex-1 bg-gray-100 overflow-y-auto">
            {/* Header */}
-    <div className="bg-gray-900 p-4 mb-50 shadow-md flex justify-center">
+    <div className="bg-gray-900 p-4 mb-8 shadow-md flex justify-center">
       <h1 className="text-3xl font-bold text-white">Floorplan Generator</h1>
     </div>
         {svgData ? (
-          <Card className="max-w-3xl mx-auto">
+          <Card className="max-w-3xl mx-auto m-8 mx-55` w-full">
             <CardHeader>
               <CardTitle>Generated Floorplan</CardTitle>
               <CardDescription>Your AI-generated design</CardDescription>
