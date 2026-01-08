@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 export default function LoginCard() {
  return (
        <>
-        <Card className="w-full max-w-sm bg-transparent text-white border-none z-10">
+        <Card className="w-full max-w-sm bg-transparent text-white border-none shadow-none z-10">
           <CardHeader>
             <CardTitle>Login to your account</CardTitle>
             <CardDescription>
@@ -16,7 +16,7 @@ export default function LoginCard() {
           </CardHeader>
           <CardContent>
             <form>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 border-none">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
