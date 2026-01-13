@@ -10,7 +10,6 @@ export function HouseSvg({ mode }: Props) {
   const slab = useRef<SVGRectElement>(null);
   const chimney = useRef<SVGRectElement>(null);
   const walls = useRef<SVGRectElement>(null);
-
   const timeline = useRef<gsap.core.Timeline | null>(null);
 
   /* BUILD TIMELINE ONCE */
@@ -51,7 +50,7 @@ export function HouseSvg({ mode }: Props) {
       <path
         ref={roof}
         d="M 12 70 Q -4 71 9 62 L 102 8 Q 112 2 122 8 L 215 62 Q 228 71 212 70 Z"
-        fill="#4f6396"
+        fill="#020919"
         transform-origin="50% 100%"
       />
 
@@ -63,7 +62,7 @@ export function HouseSvg({ mode }: Props) {
         width="220"
         height="20"
         rx={6}
-        fill="#4f6396"
+        fill="#020919"
         style={{ transformOrigin: "50% 50%" }}
       />
 
@@ -75,7 +74,7 @@ export function HouseSvg({ mode }: Props) {
         width="22"
         height="40"
         rx={3}
-        fill="#4f6396"
+        fill="#020919"
         style={{ transformOrigin: "50% 100%" }}
       />
 
@@ -87,7 +86,7 @@ export function HouseSvg({ mode }: Props) {
         width="191"
         height="170"
         rx={10}
-        fill="#4f6396"
+        fill="#020919"
       />
     </svg>
   );
