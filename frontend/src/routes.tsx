@@ -3,19 +3,24 @@ import HomePage from "./components/home/HomePage";
 import Floorplan from "./components/viewPlan/Floorplan";
 import InputWizard from "./components/viewPlan/InputWizard";
 import AuthPage from "./components/auth/AuthPage";
+import ProtectedRoute from "./components/commons/ProtectedRoute";
 // import InputWizard from "./components/viewPlan/inputWizard";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: (
-            <HomePage />
+            <ProtectedRoute>
+                <HomePage />
+            </ProtectedRoute>
         )
     },
     {
         path: "/view",
         element: (
-            <Floorplan />
+            <ProtectedRoute>
+                <Floorplan />
+            </ProtectedRoute>
         )
     },
     {
@@ -27,10 +32,9 @@ const router = createBrowserRouter([
     {
         path: "/input",
         element: (
-            [
-                // <Navbar />,
-            <InputWizard />
-            ]
+            <ProtectedRoute>
+                <InputWizard />
+            </ProtectedRoute>
         )
     }
 ])

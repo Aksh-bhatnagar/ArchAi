@@ -30,7 +30,7 @@ const registerUser = asyncHandler( async (req, res) => {
     const {firstname, lastname, password, email} = req.body
 
     if (
-        [firstname, lastname, email, password].some((field) => field?.trim() === "")
+        [firstname, email, password].some((field) => field?.trim() === "")
     ) {
         throw new ApiError(400, "All fields are required")
     }
@@ -54,7 +54,20 @@ const registerUser = asyncHandler( async (req, res) => {
         throw new ApiError(500, "something went wrong while registering user")
     }
 
-    return res.status(201).json(
+    const { accessToken, refreshToken } =
+    await generateAccessAndRefreshTokens(createdUser._id);
+
+    const options = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  };
+
+    return res
+    .status(201)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)         
+    .json(
         new ApiResponse(200, createdUser, "User registered successfully")
     )
 } )
@@ -91,7 +104,8 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
     }
 
     return res
@@ -125,7 +139,8 @@ const logoutUser = asyncHandler(async (req,res) => {
 
     const options = {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
     }
 
     return res
