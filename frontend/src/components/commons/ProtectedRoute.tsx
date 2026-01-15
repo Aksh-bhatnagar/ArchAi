@@ -18,8 +18,8 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
         setIsAuthenticated(true);
       } catch (error) {
         setIsAuthenticated(false);
-        toast.error("You are not logged in");
         navigate("/auth", { replace: true }); // Use replace to avoid back navigation
+        toast.error("You are not logged in");
       }
     };
 

@@ -1,4 +1,2 @@
-1. state for auth
-2. errors for auth
-3. protected route
-4. move to homepage
+1. errors for auth
+2. move to homepage

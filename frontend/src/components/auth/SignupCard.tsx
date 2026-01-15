@@ -14,20 +14,34 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function SignupCard() {
-    const [firstname, setfirstname] = useState("")
-    const [lastname, setlastname] = useState("")
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
-    const navigate = useNavigate()
+  const [firstname, setfirstname] = useState("");
+  const [lastname, setlastname] = useState("");
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
-      await api.post("/users/register", {firstname, lastname, email, password})
-      console.log("SignUp Successful")
-      navigate("/input")
-    } catch (error) {
-      console.log("SignUp Failed", error)
-      toast.message("Unable to Signup !!")
+      await api.post("/users/register", {
+        firstname,
+        lastname,
+        email,
+        password,
+      });
+      console.log("SignUp Successful");
+      navigate("/input");
+    } catch (error: any) {
+      console.error("Signup Failed", error);
+
+      // Backend responded with an error
+      if (error.response) {
+        const message = error.response.data?.message || "Unable to sign up";
+        toast.error(message);
+      } else if (error.request) {
+        toast.error("Server not responding. Try again later.");
+      } else {
+        toast.error("Something went wrong.");
+      }
     }
   };
   return (
@@ -117,17 +131,17 @@ export default function SignupCard() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <span
+          <button
             onClick={handleRegister}
-            className="w-full
-          bg-sky-500 hover:bg-sky-400
-           text-slate-950
-            font-medium
-            shadow-lg shadow-sky-500/30
-            rounded-md h-9 text-center pt-1"
+            className="w-full!
+           bg-sky-500! hover:bg-sky-400!
+           text-slate-950!
+            font-medium!
+            shadow-lg shadow-sky-500/30!
+            rounded-md! h-9! text-center! pt-1!"
           >
             Sign Up
-          </span>
+          </button>
         </CardFooter>
       </Card>
     </>

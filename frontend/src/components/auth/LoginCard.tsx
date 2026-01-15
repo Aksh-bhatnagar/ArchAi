@@ -9,26 +9,38 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
-import api from "@/api/api"
+import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export default function LoginCard() {
-const [email, setemail] = useState("")
-const [password, setpassword] = useState("")
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
 
-const navigate = useNavigate()
+  const navigate = useNavigate();
 
-const handleLogin = async () => {
- try {
-  await api.post("/users/login", {email, password})
-  console.log("Login Success")
-  navigate("/input")
- } catch (error) {
-  console.log("Login Failed", error)
-      toast.message("Unable to Login !!")
- }
-}
+  const handleLogin = async () => {
+    try {
+      await api.post("/users/login", { email, password });
+      console.log("Login Success");
+      navigate("/input");
+    } catch (error: any) {
+
+      console.log("Login Failed", error);
+      if (!email || !password) {
+        toast.warning("Email and password are required");
+        return;
+      }
+      if (error.response) {
+        const message = error.response.data?.message || "Invalid credentials";
+        toast.error(message);
+      } else if (error.request) {
+        toast.error("Server not responding. Try again later.");
+      } else {
+        toast.error("Something went wrong.");
+      }
+    }
+  };
 
   return (
     <>
@@ -56,7 +68,7 @@ const handleLogin = async () => {
                  placeholder:text-slate-500
                  focus:border-sky-400
                    focus:ring-2 focus:ring-sky-400/30"
-                   onChange={(e) => setemail(e.target.value)}
+                  onChange={(e) => setemail(e.target.value)}
                 />
               </div>
 
@@ -81,16 +93,17 @@ const handleLogin = async () => {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <span className="w-full
-           bg-sky-500 hover:bg-sky-400
-           text-slate-950
-            font-medium
-            shadow-lg shadow-sky-500/30
-            rounded-md h-9 text-center pt-1"
+          <button
+            className="w-full!
+           bg-sky-500! hover:bg-sky-400!
+           text-slate-950!
+            font-medium!
+            shadow-lg shadow-sky-500/30!
+            rounded-md! h-9! text-center! pt-1!"
             onClick={handleLogin}
-            >
-              Login
-            </span>
+          >
+            Login
+          </button>
         </CardFooter>
       </Card>
     </>
