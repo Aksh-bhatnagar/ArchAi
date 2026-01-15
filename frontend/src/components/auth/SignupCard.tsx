@@ -8,8 +8,28 @@ import {
 } from "../ui/card";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
+import api from "@/api/api";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function SignupCard() {
+    const [firstname, setfirstname] = useState("")
+    const [lastname, setlastname] = useState("")
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
+    const navigate = useNavigate()
+
+  const handleRegister = async () => {
+    try {
+      await api.post("/users/register", {firstname, lastname, email, password})
+      console.log("SignUp Successful")
+      navigate("/input")
+    } catch (error) {
+      console.log("SignUp Failed", error)
+      toast.message("Unable to Signup !!")
+    }
+  };
   return (
     <>
       <Card className="w-full max-w-sm bg-transparent text-white border-none shadow-none z-10">
@@ -26,9 +46,11 @@ export default function SignupCard() {
                 <Label htmlFor="firstname">First Name</Label>
                 <Input
                   id="firstname"
-                  type="firstname"
+                  type="text"
                   placeholder="John"
                   required
+                  value={firstname}
+                  onChange={(e) => setfirstname(e.target.value)}
                   className="bg-slate-950/60
                  border-slate-700
                  text-slate-100
@@ -42,9 +64,11 @@ export default function SignupCard() {
                 <Label htmlFor="lastname">Last Name</Label>
                 <Input
                   id="lastname"
-                  type="lastname"
+                  type="text"
                   placeholder="Doe"
                   required
+                  value={lastname}
+                  onChange={(e) => setlastname(e.target.value)}
                   className="bg-slate-950/60
                  border-slate-700
                  text-slate-100
@@ -61,6 +85,8 @@ export default function SignupCard() {
                   type="email"
                   placeholder="rust@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setemail(e.target.value)}
                   className="bg-slate-950/60
                    border-slate-700
                    text-slate-100
@@ -77,6 +103,8 @@ export default function SignupCard() {
                   type="password"
                   required
                   placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setpassword(e.target.value)}
                   className="bg-slate-950/60
                    border-slate-700
                    text-slate-100
@@ -90,6 +118,7 @@ export default function SignupCard() {
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <span
+            onClick={handleRegister}
             className="w-full
           bg-sky-500 hover:bg-sky-400
            text-slate-950

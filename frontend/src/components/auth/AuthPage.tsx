@@ -4,12 +4,18 @@ import LoginCard from "./LoginCard";
 import SignupCard from "./SignupCard";
 import Navbar from "../commons/Navbar";
 import { AnimatePresence, motion } from "framer-motion";
+import { Toaster } from 'sonner';
 
 export default function AuthPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
 
   return (
     <>
+    <Toaster 
+     duration={2000}  
+     position="top-right"
+     
+            />
       <Navbar
         mode={mode}
         setMode={ setMode }
@@ -49,7 +55,7 @@ export default function AuthPage() {
             )}
           </AnimatePresence>
         </div>
-            </div>
+        </div>
       </div>
     </>
   );

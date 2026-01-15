@@ -51,7 +51,7 @@ export function HouseSvg({ mode }: Props) {
         ref={roof}
         d="M 12 70 Q -4 71 9 62 L 102 8 Q 112 2 122 8 L 215 62 Q 228 71 212 70 Z"
         fill="#020919"
-        transform-origin="50% 100%"
+        style={{ transformOrigin: "50% 100%" }}
       />
 
       {/* SLAB ROOF */}

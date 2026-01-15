@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import {
   Card,
@@ -9,9 +9,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@radix-ui/react-label";
+import api from "@/api/api"
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function LoginCard() {
-  const handleLogin = useEffect(() => {});
+const [email, setemail] = useState("")
+const [password, setpassword] = useState("")
+
+const navigate = useNavigate()
+
+const handleLogin = async () => {
+ try {
+  await api.post("/users/login", {email, password})
+  console.log("Login Success")
+  navigate("/input")
+ } catch (error) {
+  console.log("Login Failed", error)
+      toast.message("Unable to Login !!")
+ }
+}
 
   return (
     <>
@@ -30,6 +47,7 @@ export default function LoginCard() {
                 <Input
                   id="email"
                   type="email"
+                  value={email}
                   placeholder="rust@example.com"
                   required
                   className="bg-slate-950/60
@@ -38,6 +56,7 @@ export default function LoginCard() {
                  placeholder:text-slate-500
                  focus:border-sky-400
                    focus:ring-2 focus:ring-sky-400/30"
+                   onChange={(e) => setemail(e.target.value)}
                 />
               </div>
 
@@ -46,6 +65,7 @@ export default function LoginCard() {
                 <Input
                   id="password"
                   type="password"
+                  value={password}
                   required
                   placeholder="••••••••"
                   className="bg-slate-950/60
@@ -54,6 +74,7 @@ export default function LoginCard() {
                    placeholder:text-slate-500
                    focus:border-sky-400
                      focus:ring-2 focus:ring-sky-400/30"
+                  onChange={(e) => setpassword(e.target.value)}
                 />
               </div>
             </div>
@@ -65,7 +86,9 @@ export default function LoginCard() {
            text-slate-950
             font-medium
             shadow-lg shadow-sky-500/30
-            rounded-md h-9 text-center pt-1">
+            rounded-md h-9 text-center pt-1"
+            onClick={handleLogin}
+            >
               Login
             </span>
         </CardFooter>
