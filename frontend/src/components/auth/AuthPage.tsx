@@ -21,7 +21,7 @@ export default function AuthPage() {
         setMode={ setMode }
       />
 
-      <div className="h-screen w-screen flex flex-col items-center justify-center min-h-screen bg-linear-to-br from-zinc-950 via-slate-950 to-zinc-900 ">
+      <div className="h-screen w-screen flex flex-col items-center justify-center min-h-screen">
          <div className="relative w-[650px] h-[650px] drop-shadow-[0_0_50px_rgba(56,189,248,0.30)]">
             <div className="relative w-[650px] h-[650px] drop-shadow-[0_0_2px_rgba(66,81,111)]">
 

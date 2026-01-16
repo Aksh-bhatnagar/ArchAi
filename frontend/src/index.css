@@ -10,7 +10,12 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background: linear-gradient(
+    to bottom right,
+    #09090b,
+    #020617,
+    #18181b
+);;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -79,16 +84,13 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: oklch(68.5% 0.169 237.323);
   cursor: pointer;
   transition: border-color 0.25s;
+  color: #020618;
 }
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  background-color: oklch(74.6% 0.16 232.661);
 }
 
 @media (prefers-color-scheme: light) {
@@ -201,3 +203,15 @@ button:focus-visible {
   }
 }
 
+.bg-app-gradient {
+  background: linear-gradient(
+    to bottom right,
+    #09090b,
+    #020617,
+    #18181b
+  );
+}
+
+@theme {
+
+}

@@ -23,7 +23,7 @@ export default function LoginCard() {
     try {
       await api.post("/users/login", { email, password });
       console.log("Login Success");
-      navigate("/input");
+      navigate("/home");
     } catch (error: any) {
 
       console.log("Login Failed", error);
@@ -94,14 +94,8 @@ export default function LoginCard() {
         </CardContent>
         <CardFooter className="flex-col gap-2">
           <button
-            className="w-full!
-           bg-sky-500! hover:bg-sky-400!
-           text-slate-950!
-            font-medium!
-            shadow-lg shadow-sky-500/30!
-            rounded-md! h-9! text-center! pt-1!"
             onClick={handleLogin}
-          >
+            className="w-full">
             Login
           </button>
         </CardFooter>

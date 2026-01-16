@@ -1,9 +1,10 @@
+import { LucideUserCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 type Props = {
-  mode: "login" | "signup";
-  setMode: React.Dispatch<React.SetStateAction<"login" | "signup">>;
+  mode: "login" | "signup" | "";
+  setMode: React.Dispatch<React.SetStateAction<"login" | "signup">> | "";
 };
 
 export default function Navbar({ mode, setMode }: Props) {
@@ -20,10 +21,12 @@ export default function Navbar({ mode, setMode }: Props) {
       setIsDisabled(false);
     }, 1500)
 
-    setMode(mode === "login" ? "signup" : "login")
+    if (typeof setMode === "function") {
+      setMode(mode === "login" ? "signup" : "login")
+    }
   }
 
-  const handleLogo = () => navigate("/")
+  const handleLogo = () => navigate("/home")
 
   return (
     <div className="bg-[#0F172A] text-[#E5E7EB] h-18 w-screen top-0 flex absolute z-20 justify-between">
@@ -41,6 +44,15 @@ export default function Navbar({ mode, setMode }: Props) {
           {mode === "login" ? "Signup" : "Login"}
         </span>
       )}
+
+      {
+        location.pathname === "/home" && (
+          <span
+            className="rounded-full cursor-pointer p-4">
+              <LucideUserCircle className="size-10"/>
+          </span>
+        )
+      }
       </div>
     </div>
   );

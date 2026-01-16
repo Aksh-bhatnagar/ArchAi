@@ -29,7 +29,7 @@ export default function SignupCard() {
         password,
       });
       console.log("SignUp Successful");
-      navigate("/input");
+      navigate("/home");
     } catch (error: any) {
       console.error("Signup Failed", error);
 
@@ -133,13 +133,7 @@ export default function SignupCard() {
         <CardFooter className="flex-col gap-2">
           <button
             onClick={handleRegister}
-            className="w-full!
-           bg-sky-500! hover:bg-sky-400!
-           text-slate-950!
-            font-medium!
-            shadow-lg shadow-sky-500/30!
-            rounded-md! h-9! text-center! pt-1!"
-          >
+            className="w-full">
             Sign Up
           </button>
         </CardFooter>
