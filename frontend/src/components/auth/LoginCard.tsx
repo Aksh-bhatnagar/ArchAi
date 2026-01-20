@@ -23,7 +23,7 @@ export default function LoginCard() {
     try {
       await api.post("/users/login", { email, password });
       console.log("Login Success");
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error: any) {
 
       console.log("Login Failed", error);

@@ -9,7 +9,7 @@ import {
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import api from "@/api/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -29,7 +29,7 @@ export default function SignupCard() {
         password,
       });
       console.log("SignUp Successful");
-      navigate("/home");
+      navigate("/dashboard");
     } catch (error: any) {
       console.error("Signup Failed", error);
 

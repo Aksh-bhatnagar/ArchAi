@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { HouseSvg } from "./HouseSvg";
-import LoginCard from "./LoginCard";
-import SignupCard from "./SignupCard";
-import Navbar from "../commons/Navbar";
+import { HouseSvg } from "./HouseSvg.tsx";
+import LoginCard from "./LoginCard.tsx";
+import SignupCard from "./SignupCard.tsx";
+import Navbar from "../commons/Navbar.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toaster } from 'sonner';
 

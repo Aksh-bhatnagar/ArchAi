@@ -46,7 +46,7 @@ export default function Navbar({ mode, setMode }: Props) {
       )}
 
       {
-        location.pathname === "/home" && (
+        (location.pathname === "/dashboard" || location.pathname === "/input") && (
           <span
             className="rounded-full cursor-pointer p-4">
               <LucideUserCircle className="size-10"/>

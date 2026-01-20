@@ -1,12 +1,15 @@
-import { Flag, PlusIcon } from "lucide-react";
-import Navbar from "../commons/Navbar";
+import { PlusIcon } from "lucide-react";
+import Navbar from "../commons/Navbar.tsx";
 import { Typewriter } from "react-simple-typewriter";
-import { useState } from "react";
-import InputWizard from "./InputWizard";
+import { useNavigate } from "react-router-dom";
 
-export default function Home() {
-const [wizard, setwizard] = useState(false)
 
+export default function Dashboard() {
+
+  const navigate = useNavigate()
+  const handleCreate = () => {
+    navigate("/input")
+  }
 
   return (
     <>
@@ -34,22 +37,13 @@ const [wizard, setwizard] = useState(false)
         <p className="max-w-xl text-zinc-400 text-lg">
           Generate optimized architectural layouts in minutes using AI-driven workflows.
         </p>
-        <button onClick={() => setwizard(true)}
+        <button onClick={handleCreate}
           className="flex justify-center items-center gap-1">
           <PlusIcon />
           Create New Floor Plan
         </button>
       </div>
-
-      {/* Saved Floor Plans */}
-
-      {/* input wizard */}
-    { wizard && <InputWizard />}
-
     </div>
-
-
-    
     </>
   );
 }
