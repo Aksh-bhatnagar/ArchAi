@@ -6,4 +6,4 @@ const router = Router()
 
 router.route("/floorplan").post(verifyJWT, generator)
 
-export default router
+export default router;

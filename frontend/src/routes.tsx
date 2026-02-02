@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./components/home/HomePage.tsx";
-import Floorplan from "./components/viewPlan/Floorplan.tsx";
 import AuthPage from "./components/auth/AuthPage.tsx";
 import ProtectedRoute from "./components/commons/ProtectedRoute.tsx";
-import Dashboard from "./components/viewPlan/Dashboard.tsx";
-import InputFields from "./components/viewPlan/InputFields.tsx";
+import Dashboard from "./components/dashboard/Dashboard.tsx";
+import InputFields from "./components/fields/InputFields.tsx";
+import ViewPlan from "./components/viewPlan/ViewPlan.tsx";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         path: "/view",
         element: (
             <ProtectedRoute>
-                <Floorplan />
+                <ViewPlan />
             </ProtectedRoute>
         )
     },

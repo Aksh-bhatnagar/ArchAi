@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,8 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Home } from "lucide-react";
-import { redirect } from "react-router-dom";
 
 export default function Floorplan() {
   // Plot details
@@ -294,7 +292,7 @@ export default function Floorplan() {
           onClick={generateFloorplan}
           disabled={loading}
           variant={"default"}
-          className="w-half mt-2 text-white !bg-gray-800 rounded-2xl"
+          className="w-half mt-2 text-white bg-gray-800! rounded-2xl"
         >
           {loading ? "Generating..." : "Generate Floorplan"}
         </Button>
