@@ -13,22 +13,20 @@ const generator = asyncHandler(async (req, res) => {
     //retreave svg data from ai
     //display or send to frontend
     //clear mongoose
-    const propertyData = req.body;
+    const { propertyData, projectName }  = req.body;
 
     if (!propertyData) {
         throw new ApiError(400, "Please fill property data")
     }
 
-    console.log(propertyData)
-    // const floorplan = await Floorplan.create(propertyData)
+    const floorplan = await Floorplan.create({projectName,...propertyData})
 
-    // const createdProperty = await Floorplan.findById(floorplan._id);
+    const createdProperty = await Floorplan.findById(floorplan._id);
 
-    // if (!createdProperty) {
-    //     throw new ApiError(500, "something went wrong while Creating Property Details")
-    // }
+    if (!createdProperty) {
+        throw new ApiError(500, "something went wrong while Creating Property Details")
+    }
 
-    // console.log(createdProperty)
 
     const prompt = 
 `You are an architectural floorplan generator. 
@@ -90,8 +88,6 @@ If not, regenerate until the SVG is fully drawn.
     if (!response) {
         throw new ApiError(500, "Ai Failed to generate SVG")
     }
-
-    console.log(response.text)
 
     return res.status(201).json(
         new ApiResponse(200, response.text,"floorplan generated successfully")

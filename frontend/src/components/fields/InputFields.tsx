@@ -63,6 +63,7 @@ export default function InputFields() {
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [projectName, setProjectName] = useState("");
 
   const navigate = useNavigate();
 
@@ -177,13 +178,13 @@ export default function InputFields() {
         },
       };
 
-      const res = await api.post("/architech/floorplan", payload);
+      const res = await api.post("/architech/floorplan", {
+        projectName,
+        propertyData: payload,
+      });
 
-      navigate("/view", {
-      state: {
-       svg: res.data.data,
-  },
-});
+  navigate(`/view/${res.data.data.projectId}`);
+
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
@@ -283,6 +284,15 @@ export default function InputFields() {
               {/* STEP 1 – Plot */}
               {step === 0 && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+                  <Label className="text-slate-300 font-medium">
+                    Project Name <span className="text-red-400">*</span>
+                  </Label>
+                  <Input
+                    placeholder="My Dream Home"
+                    value={projectName}
+                    onChange={(e) => setProjectName(e.target.value)}
+                    className="bg-slate-900/50 border-slate-600 text-white"
+                  />
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label className="text-slate-300 font-medium flex items-center gap-2">

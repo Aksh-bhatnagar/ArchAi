@@ -1,12 +1,41 @@
-import { useLocation, Navigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "@/api/api";
 
 export default function View() {
-  const { state } = useLocation();
-  const svg = state?.svg;
+  const { id } = useParams();
+  const [svg, setSvg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const res = await api.get(`/projects/${id}`);
+        setSvg(res.data.data.svg);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProject();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
+        Loading floorplan...
+      </div>
+    );
+  }
 
   if (!svg) {
-    // user refreshed page or accessed directly
-    return <Navigate to="/" replace />;
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-red-400">
+        Failed to load floorplan
+      </div>
+    );
   }
 
   return (
@@ -18,4 +47,3 @@ export default function View() {
     </div>
   );
 }
-

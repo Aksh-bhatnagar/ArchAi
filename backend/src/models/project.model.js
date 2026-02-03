@@ -13,6 +13,9 @@ const projectSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'description'
+    },
+    svg: {
+        type: String,
     }
 }, { timestamps: true });
 
