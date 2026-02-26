@@ -14,7 +14,6 @@ export default function Navbar({ mode, setMode }: Props) {
 
   const handleTransform = () => {
     if(isDisabled) return;
-
     setIsDisabled(true)
 
     setTimeout(() => {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "@/api/api";
+import Navbar from "../commons/Navbar";
 
 export default function View() {
   const { id } = useParams();
@@ -10,8 +11,9 @@ export default function View() {
   useEffect(() => {
     const fetchProject = async () => {
       try {
-        const res = await api.get(`/projects/${id}`);
+        const res = await api.get(`/floorplans/${id}`);
         setSvg(res.data.data.svg);
+        console.log("FLOORPLAN RESPONSE:", res.data);
       } catch (err) {
         console.error(err);
       } finally {
@@ -39,11 +41,28 @@ export default function View() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 flex justify-center items-center p-6">
+    <>
+      <Navbar mode="" setMode={""} />
+      {/* <div className="h-screen w-screen bg-slate-950 flex justify-center items-center p-6">
+        <div 
+          className="bg-white p-4 rounded"
+          dangerouslySetInnerHTML={{ __html: svg }}
+        />
+      </div> */}
+        <div className="h-screen w-screen bg-slate-950 overflow-auto flex justify-center items-center">
+    <div
+      className="bg-white rounded shadow-xl"
+      style={{
+        width: "90vw",
+        height: "90vh",
+      }}
+    >
       <div
-        className="bg-white p-4 rounded"
+        className="w-full h-full"
         dangerouslySetInnerHTML={{ __html: svg }}
       />
     </div>
+  </div>
+    </>
   );
 }

@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
 const floorplanSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+
   projectName: {
     type: String,
     required: true,
@@ -15,7 +21,6 @@ const floorplanSchema = new mongoose.Schema({
   house: {
     floor: { type: Number, default: 0 },
     bhk_type: { type: String, required: true },
-
     bedroom: { type: Number, required: true },
     bathroom: { type: Number, required: true },
     kitchen: { type: Number, required: true },
@@ -30,7 +35,12 @@ const floorplanSchema = new mongoose.Schema({
   },
 
   vastu: Boolean,
-});
+
+  svg: {
+    type: String,
+  },
+
+}, { timestamps: true });
 
 
 export const Floorplan = mongoose.model('Floorplan', floorplanSchema);

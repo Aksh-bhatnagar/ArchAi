@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         )
     },
     {
-        path: "/view",
+        path: "/view/:id",
         element: (
             <ProtectedRoute>
                 <ViewPlan />
