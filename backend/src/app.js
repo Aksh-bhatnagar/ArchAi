@@ -7,8 +7,9 @@ const app = express()
 
 app.use(cors({
   origin: "http://localhost:5173",
-  methods: ["GET", "POST"],
-  credentials: true
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(express.json({limit: '16kb'}))
 app.use(express.urlencoded({extended: true, limit: '16kb'}))
@@ -18,12 +19,9 @@ app.use(cookieParser())
 //routes import
 import userRouter from './routes/user.routes.js';
 import floorplanRouter from './routes/floorplan.routes.js';
-// import projectRoutes from './routes/project.routes.js';
 
 //routers declaration
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/architech", floorplanRouter)
-// app.use("/api/v1/project", projectRoutes);
-app.use("/api/v1/floorplans", floorplanRouter);
 
 export { app }

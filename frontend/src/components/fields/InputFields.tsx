@@ -178,8 +178,8 @@ export default function InputFields() {
         },
       };
 
-      const res = await api.post("/architech/floorplan", {
-        projectName,
+      const res = await api.post("/architech", {
+        projectName: projectName || "Untitled",
         propertyData: payload,
       });
 
@@ -291,7 +291,7 @@ export default function InputFields() {
                     placeholder="My Dream Home"
                     value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
-                    className="bg-slate-900/50 border-slate-600 text-white"
+                    className={`bg-slate-900/50 border-slate-600 text-white `}
                   />
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
@@ -547,6 +547,7 @@ export default function InputFields() {
                               key as keyof typeof form.preferences
                             ]
                           }
+                          disabled={loading}
                           onCheckedChange={(v) =>
                             update(`preferences.${key}`, v === true)
                           }

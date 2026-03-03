@@ -92,9 +92,6 @@ If not, regenerate until the SVG is fully drawn.
     floorplan.svg = response.text;
     await floorplan.save();
 
-
-
-
     return res.status(201).json(
         new ApiResponse(200, { projectId: floorplan._id, svg: response.text }, "floorplan generated successfully")
     )
