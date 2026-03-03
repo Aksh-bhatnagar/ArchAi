@@ -567,6 +567,7 @@ export default function InputFields() {
 
               {/* Navigation */}
               <div className="flex justify-between pt-6 border-t border-slate-700">
+
                 <Button
                   variant="ghost"
                   onClick={back}
@@ -596,6 +597,9 @@ export default function InputFields() {
                   </Button>
                 )}
               </div>
+              {
+                loading && <span className="text-white">Please wait it may take few minutes...</span>
+              }
             </CardContent>
           </Card>
         </div>

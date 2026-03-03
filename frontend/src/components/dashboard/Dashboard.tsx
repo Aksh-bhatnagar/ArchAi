@@ -92,7 +92,7 @@ export default function Dashboard() {
           )}
 
           {!loading && floorplans.length === 0 && (
-            <p className="text-zinc-500">
+            <p className="text-zinc-500 flex">
               You haven't generated any floorplans yet.
             </p>
           )}
