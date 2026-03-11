@@ -240,3 +240,8 @@ button:hover {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 118, 244, 0.4) transparent;
 }
+
+.loading-dots::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}

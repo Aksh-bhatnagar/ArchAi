@@ -29,6 +29,9 @@ import {
   preferencesStepSchema,
 } from "./floorplan.schema";
 import { z } from "zod";
+import Loader from "../commons/Loader";
+import { useDispatch } from "react-redux";
+import { addFloorplan } from "@/redux/floorplanSlice";
 
 type BHKType = "1RK" | "1BHK" | "2BHK" | "3BHK" | "Custom";
 
@@ -66,6 +69,7 @@ export default function InputFields() {
   const [projectName, setProjectName] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [form, setForm] = useState({
     plot: {
@@ -182,9 +186,15 @@ export default function InputFields() {
         projectName: projectName || "Untitled",
         propertyData: payload,
       });
+      const plan = {
+        _id: res.data.data.projectId,
+        projectName: projectName || "Untitled",
+        svg: res.data.data.svg,
+        createdAt: new Date().toISOString(),
+      };
 
-  navigate(`/view/${res.data.data.projectId}`);
-
+      dispatch(addFloorplan(plan));
+      navigate(`/view/${plan._id}`);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
@@ -567,7 +577,6 @@ export default function InputFields() {
 
               {/* Navigation */}
               <div className="flex justify-between pt-6 border-t border-slate-700">
-
                 <Button
                   variant="ghost"
                   onClick={back}
@@ -588,7 +597,6 @@ export default function InputFields() {
                   >
                     {loading ? (
                       <span className="flex items-center gap-2">
-                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                         Generating...
                       </span>
                     ) : (
@@ -597,13 +605,11 @@ export default function InputFields() {
                   </Button>
                 )}
               </div>
-              {
-                loading && <span className="text-white">Please wait it may take few minutes...</span>
-              }
             </CardContent>
           </Card>
         </div>
       </div>
+      {loading && <Loader text="Please wait. This may take few minutes" />}
     </>
   );
 }

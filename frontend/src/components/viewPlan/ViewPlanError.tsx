@@ -1,8 +1,20 @@
+import api from '@/api/api';
 import Navbar from '../commons/Navbar'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export default function ViewPlanError() {
+    const { id } = useParams()
     const navigate = useNavigate();
+    
+    const handleBack = async () => {
+    try {
+      await api.delete(`/architech/${id}/delete`);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      navigate("/dashboard");
+    }
+  };
 
   return (
     <>
@@ -19,7 +31,7 @@ export default function ViewPlanError() {
       We couldn’t load the requested floorplan. It may have been removed or there was a network issue.
     </p>
 
-    <button onClick={() => navigate("/dashboard")} className="w-full transition-all duration-300 text-white py-3 rounded-lg font-medium shadow-lg">
+    <button onClick={handleBack} className="w-full transition-all duration-300 text-white py-3 rounded-lg font-medium shadow-lg">
       Go Back
     </button>
 

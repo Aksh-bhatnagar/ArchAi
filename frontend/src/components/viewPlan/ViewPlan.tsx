@@ -5,6 +5,10 @@ import Navbar from "../commons/Navbar";
 import ViewPlanError from "./ViewPlanError";
 import { Edit2, Trash2, X } from "lucide-react";
 import RenameModal from "./RenameModal";
+import { useDispatch } from "react-redux";
+import { removeFloorplan } from "@/redux/floorplanSlice";
+import type { AppDispatch } from "@/redux/floorplanStore";
+import { renameFloorplan } from "@/redux/floorplanSlice";
 
 export default function View() {
   const { id } = useParams();
@@ -13,10 +17,14 @@ export default function View() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const [showRenameModal, setshowRenameModal] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleDelete = async () => {
     try {
       await api.delete(`/architech/${id}/delete`);
+      if (id) {
+        dispatch(removeFloorplan(id));
+      }
     } catch (err) {
       console.error(err);
     } finally {
@@ -54,13 +62,14 @@ export default function View() {
 
   useEffect(() => {
     const fetchProject = async () => {
+      setLoading(true);
       try {
         const res = await api.get(`/architech/${id}`);
         setSvg(res.data.data.svg);
         setProjectName(res.data.data.projectName);
-        console.log("FLOORPLAN RESPONSE:", res.data);
       } catch (err) {
         console.error(err);
+        setSvg(null);
       } finally {
         setLoading(false);
       }
@@ -69,13 +78,12 @@ export default function View() {
     fetchProject();
   }, [id]);
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">
-  //       Loading floorplan...
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      // <Loader text="" />
+      <></>
+    );
+  }
 
   if (!svg) {
     return <ViewPlanError />;
@@ -131,7 +139,10 @@ export default function View() {
         <RenameModal
           id={id}
           onClose={() => setshowRenameModal(false)}
-          onRenameSuccess={(newName) => setProjectName(newName)}
+          onRenameSuccess={(newName) => {
+            setProjectName(newName);
+            dispatch(renameFloorplan({ id, name: newName }));
+          }}
         />
       )}
     </>

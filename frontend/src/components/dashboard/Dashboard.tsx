@@ -1,43 +1,30 @@
-import { PlusIcon, MoreVertical } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import Navbar from "../commons/Navbar.tsx";
 import { Typewriter } from "react-simple-typewriter";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import api from "@/api/api";
+import { useEffect } from "react";
 import blueprintImg from "@/assets/home-blueprints.jpeg";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFloorplans } from "@/redux/floorplanSlice";
+import type { RootState } from "@/redux/floorplanStore";;
+import type { AppDispatch } from "@/redux/floorplanStore";
 
 export default function Dashboard() {
   const navigate = useNavigate();
 
-  const [floorplans, setFloorplans] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+
+const { data: floorplans, loading, fetched } = useSelector(
+  (state: RootState) => state.floorplans
+);
 
   const handleCreate = () => {
     navigate("/input");
   };
 
-  useEffect(() => {
-    const fetchFloorplans = async () => {
-      try {
-        const res = await api.get("/architech/my-floorplans");
-
-        setFloorplans(res.data.data);
-      } catch (err: any) {
-        console.error("Failed to fetch floorplans", err);
-
-        if (err.response?.status === 401) {
-          navigate("/login");
-        } else {
-          setError("Failed to load floorplans");
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFloorplans();
-  }, [navigate]);
+useEffect(() => {
+  if (!fetched) dispatch(fetchFloorplans());
+}, [fetched, dispatch]);
 
   return (
     <>
@@ -87,9 +74,9 @@ export default function Dashboard() {
             <p className="text-zinc-400">Loading...</p>
           )}
 
-          {error && (
+          {/* {error && (
             <p className="text-red-500">{error}</p>
-          )}
+          )} */}
 
           {!loading && floorplans.length === 0 && (
             <p className="text-zinc-500 flex">

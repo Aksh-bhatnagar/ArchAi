@@ -2,6 +2,7 @@ import api from "@/api/api";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import Loader from "./Loader";
 
 type Props = {
   children: React.ReactNode;
@@ -26,16 +27,16 @@ const ProtectedRoute: React.FC<Props> = ({ children }) => {
     checkAuth();
   }, []);
 
-  if (isAuthenticated === null) {
-    // While checking auth, optionally show a loading spinner or blank
-    return (
-      <>
-        <div className="h-screen w-screen bg-black/50 flex justify-center items-center">
-            <div>Loading...</div>
-        </div>
-      </>
-    );
-  }
+  // if (isAuthenticated === null) {
+  //   // While checking auth, optionally show a loading spinner or blank
+  //   return (
+  //     <>
+  //       <div className="h-screen w-screen bg-black/50 flex justify-center items-center">
+  //           <Loader text={"Loading"} />
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   if (isAuthenticated) {
     return <>{children}</>;

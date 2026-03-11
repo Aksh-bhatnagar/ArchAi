@@ -48,7 +48,7 @@ export default function LoginCard() {
         <CardHeader>
           <CardTitle>Login to your account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your email below t  o login to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
