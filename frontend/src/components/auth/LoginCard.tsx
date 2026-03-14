@@ -12,6 +12,8 @@ import { Label } from "@radix-ui/react-label";
 import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { setUser } from "@/redux/userSlice";
+import { useDispatch } from "react-redux";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginCard() {
@@ -20,12 +22,16 @@ export default function LoginCard() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin = async () => {
     try {
       await api.post("/users/login", { email, password });
       console.log("Login Success");
-      navigate("/dashboard");
+      const res = await api.get("/users/getuser");
+
+      dispatch(setUser(res.data.data));
+      navigate("/dashboard", { replace: true });
     } catch (error: any) {
       console.log("Login Failed", error);
 
@@ -57,7 +63,6 @@ export default function LoginCard() {
       <CardContent>
         <form>
           <div className="flex flex-col gap-6 border-none">
-            
             {/* Email */}
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
@@ -95,7 +100,6 @@ export default function LoginCard() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-
             </div>
           </div>
         </form>

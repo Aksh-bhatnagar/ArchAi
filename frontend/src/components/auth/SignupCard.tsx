@@ -13,6 +13,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
+import { setUser } from "@/redux/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function SignupCard() {
   const [firstname, setfirstname] = useState("");
@@ -22,6 +24,7 @@ export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleRegister = async () => {
     try {
@@ -32,7 +35,10 @@ export default function SignupCard() {
         password,
       });
       console.log("SignUp Successful");
-      navigate("/dashboard");
+      const res = await api.get("/users/getuser");
+
+      dispatch(setUser(res.data.data));
+      navigate("/dashboard", { replace: true });
     } catch (error: any) {
       console.error("Signup Failed", error);
 
@@ -59,7 +65,6 @@ export default function SignupCard() {
       <CardContent>
         <form>
           <div className="flex flex-col gap-6 border-none">
-
             <div className="grid gap-2">
               <Label htmlFor="firstname">First Name</Label>
               <Input
@@ -122,7 +127,6 @@ export default function SignupCard() {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
-
             </div>
           </div>
         </form>

@@ -6,11 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { clearUser } from "@/redux/userSlice";
 
-type User = {
-  firstname: string;
-  email: string;
-};
-
 export default function ProfileModal({
   closeModal,
 }: {

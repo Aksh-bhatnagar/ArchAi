@@ -7,14 +7,15 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ProtectedRoute: React.FC<Props> = ({ children }) => {
+const AuthRoute: React.FC<Props> = ({ children }) => {
   const user = useSelector((state: RootState) => state.user.user);
 
-  if (!user) {
-    return <Navigate to="/auth" replace />;
+  // If already logged in → redirect away from auth page
+  if (user) {
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default AuthRoute;

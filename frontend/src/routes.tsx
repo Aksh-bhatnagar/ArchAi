@@ -6,6 +6,7 @@ import Dashboard from "./components/dashboard/Dashboard.tsx";
 import InputFields from "./components/fields/InputFields.tsx";
 import ViewPlan from "./components/viewPlan/ViewPlan.tsx";
 import EditPage from "./components/auth/EditPage.tsx";
+import AuthRoute from "./components/commons/AuthRoute.tsx";
 
 const router = createBrowserRouter([
     {
@@ -27,7 +28,9 @@ const router = createBrowserRouter([
     {
         path: "/auth",
         element: (
-            <AuthPage />
+            <AuthRoute>
+                <AuthPage />
+            </AuthRoute>
         )
     },
     {
