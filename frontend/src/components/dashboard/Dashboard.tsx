@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import blueprintImg from "@/assets/home-blueprints.jpeg";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFloorplans } from "@/redux/floorplanSlice";
-import type { RootState } from "@/redux/floorplanStore";;
-import type { AppDispatch } from "@/redux/floorplanStore";
+import type { RootState } from "@/redux/store.ts";;
+import type { AppDispatch } from "@/redux/store.ts";
 
 export default function Dashboard() {
   const navigate = useNavigate();

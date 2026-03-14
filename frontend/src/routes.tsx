@@ -5,6 +5,7 @@ import ProtectedRoute from "./components/commons/ProtectedRoute.tsx";
 import Dashboard from "./components/dashboard/Dashboard.tsx";
 import InputFields from "./components/fields/InputFields.tsx";
 import ViewPlan from "./components/viewPlan/ViewPlan.tsx";
+import EditPage from "./components/auth/EditPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,15 @@ const router = createBrowserRouter([
             <ProtectedRoute>
                 <InputFields />
             </ProtectedRoute>
+        )
+    },
+    {
+        path: "/edit",
+        element: (
+            <ProtectedRoute>
+                <EditPage />
+            </ProtectedRoute>
+                
         )
     }
 ])

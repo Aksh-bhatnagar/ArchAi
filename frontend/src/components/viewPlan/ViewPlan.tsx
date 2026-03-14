@@ -7,7 +7,7 @@ import { Edit2, Trash2, X } from "lucide-react";
 import RenameModal from "./RenameModal";
 import { useDispatch } from "react-redux";
 import { removeFloorplan } from "@/redux/floorplanSlice";
-import type { AppDispatch } from "@/redux/floorplanStore";
+import type { AppDispatch } from "@/redux/store";
 import { renameFloorplan } from "@/redux/floorplanSlice";
 
 export default function View() {

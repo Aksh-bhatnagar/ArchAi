@@ -1,71 +1,29 @@
-// import { UserCircle } from "lucide-react";
-// import { Button } from "../ui/button";
-// import api from "@/api/api";
-// import { useNavigate } from "react-router-dom";
-
-// export default function ProfileModal({
-//   user,
-//   setUser
-// }: {
-//   user: User | null
-//   setUser: React.Dispatch<React.SetStateAction<User | null>>
-// }) {
-//   const navigate = useNavigate();
-
-// const handleLogout = async () => {
-//   try {
-//     await api.post("/users/logout");
-//     setUser(null);
-//     navigate("/");
-//   } catch (err) {
-//     console.log("Unable to Logout", err);
-//   }
-// };
-
-//   return (
-//     <div className="h-70 w-50 bg-[#0F172A] absolute top-20 right-3 rounded-2xl z-10 flex flex-col justify-between p-4 items-center gap-2">
-      
-//       <div className="flex flex-col justify-center items-center">
-//         <UserCircle className="size-20" />
-//         <p>{user?.firstname}</p>
-//         <p className="text-sm text-gray-400">{user?.email}</p>
-//       </div>
-
-//       <Button 
-//       onClick={handleLogout}
-//       className="bg-red-600 text-white">
-//         Logout
-//       </Button>
-
-//     </div>
-//   );
-// }
-
-import { UserCircle } from "lucide-react";
+import { Edit, UserCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "@/redux/store";
+import { clearUser } from "@/redux/userSlice";
 
-interface User {
+type User = {
   firstname: string;
   email: string;
-}
+};
 
 export default function ProfileModal({
-  user,
-  setUser,
-  closeModal
+  closeModal,
 }: {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
   closeModal: () => void;
 }) {
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await api.post("/users/logout");
-      setUser(null);
+      dispatch(clearUser());
       closeModal();
       navigate("/");
     } catch (err) {
@@ -75,9 +33,22 @@ export default function ProfileModal({
 
   return (
     <div className="h-70 w-50 bg-[#0F172A] absolute top-20 right-3 rounded-2xl z-10 flex flex-col justify-between p-4 items-center gap-2">
-
       <div className="flex flex-col justify-center items-center">
-        <UserCircle className="size-20" />
+        <div className="relative w-fit group">
+          <UserCircle className="size-20" />
+
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition rounded-full"></div>
+
+          {/* Edit icon */}
+          <Edit
+            className="absolute top-1/2 left-1/2 
+    -translate-x-1/2 -translate-y-1/2 
+    text-white opacity-0 group-hover:opacity-100 
+    transition cursor-pointer"
+            onClick={() => navigate("/edit")}
+          />
+        </div>
 
         {user ? (
           <>
@@ -95,7 +66,6 @@ export default function ProfileModal({
       >
         Logout
       </Button>
-
     </div>
   );
 }

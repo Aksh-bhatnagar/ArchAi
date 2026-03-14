@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import floorplanReducer from "./floorplanSlice.ts";
+import userReducer from "./userSlice";
+import floorplanReducer from "./floorplanSlice";
 
 export const store = configureStore({
   reducer: {
+    user: userReducer,
     floorplans: floorplanReducer,
   },
 });

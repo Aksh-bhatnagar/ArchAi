@@ -10,7 +10,7 @@ router.route("/login").post(loginUser)
 //secured routes
 router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/getuser").get(verifyJWT, getCurrentUser)
-router.route("/changePassword").post(verifyJWT, changeCurrentPassword)
-router.route("/updateAccount").post(verifyJWT, updateAccountDetails)
+router.route("/change-password").post(verifyJWT, changeCurrentPassword)
+router.route("/update-account").patch(verifyJWT, updateAccountDetails)
 
 export default router;
