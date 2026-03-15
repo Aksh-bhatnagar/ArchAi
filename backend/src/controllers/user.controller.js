@@ -215,4 +215,40 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
     .json(new ApiResponse(200, user, "Account details updated successfully"))
 })
 
-export { registerUser, loginUser, logoutUser, changeCurrentPassword, getCurrentUser, updateAccountDetails }
+const deleteUser = asyncHandler(async (req, res) => {
+    const { password } = req.body
+
+    if (!password) {
+        throw new ApiError(400, "Password is required to delete account")
+    }
+
+    const user = await User.findById(req.user?._id)
+
+    if (!user) {
+        throw new ApiError(404, "User not found")
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password)
+
+    if (!isPasswordValid) {
+        throw new ApiError(401, "Incorrect password")
+    }
+
+    await User.findByIdAndDelete(req.user?._id)
+
+    const options = {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+    }
+
+    return res
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(
+            new ApiResponse(200, {}, "User account deleted successfully")
+        )
+})
+
+export { registerUser, loginUser, logoutUser, changeCurrentPassword, getCurrentUser, updateAccountDetails, deleteUser }

@@ -18,9 +18,10 @@ import api from "@/api/api";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import ChangePassModal from "./ChangePass";
+import DeleteModal from "./DeleteModal";
 
 export default function EditPage() {
-  const [deleteModal, setdeleteModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [changeNameModal, setChangeNameModal] = useState(false);
   const [changepassModal, setchangepassModal] = useState(false);
   const user = useSelector((state: RootState) => state.user.user);
@@ -79,7 +80,7 @@ export default function EditPage() {
                 <LogOut size={20} />
                 Logout
               </Button>
-              <Button className="bg-red-600! hover:bg-red-500! text-white!">
+              <Button className="bg-red-600! hover:bg-red-500! text-white!" onClick={() => setDeleteModal(true)}>
                 <Trash2 size={16} />
                 Delete Account
               </Button>
@@ -88,7 +89,10 @@ export default function EditPage() {
         </Card>
       </div>
 
-      {/* <DeleteModal /> */}
+
+      {deleteModal && (
+        <DeleteModal onClose={() => setDeleteModal(false)} />
+      )}      
       {changeNameModal && (
         <ChangeNameModal onClose={() => setChangeNameModal(false)} />
       )}
