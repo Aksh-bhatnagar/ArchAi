@@ -8,7 +8,11 @@ type Props = {
 };
 
 const ProtectedRoute: React.FC<Props> = ({ children }) => {
-  const user = useSelector((state: RootState) => state.user.user);
+  const { user, loading } = useSelector((state: RootState) => state.user);
+
+  if (loading) {
+    return null;
+  }
 
   if (!user) {
     return <Navigate to="/auth" replace />;

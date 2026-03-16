@@ -17,20 +17,6 @@ export default function Navbar({ mode, setMode }: Props) {
   const [profileModal, setProfileModal] = useState(false);
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const getMe = async () => {
-      try {
-        const res = await api.get("/users/getuser");
-        dispatch(setUser(res.data.data));
-      } catch {
-        dispatch(setUser(null));
-      }
-    };
-
-    getMe();
-  }, [dispatch]);
-
   const handleTransform = () => {
     if (isDisabled) return;
 

@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import App from "./App";
+
 import HomePage from "./components/home/HomePage.tsx";
 import AuthPage from "./components/auth/AuthPage.tsx";
 import ProtectedRoute from "./components/commons/ProtectedRoute.tsx";
@@ -9,55 +11,60 @@ import EditPage from "./components/auth/EditPage.tsx";
 import AuthRoute from "./components/commons/AuthRoute.tsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        index: true,
         element: (
-            <ProtectedRoute>
-                <HomePage />
-            </ProtectedRoute>
-        )
-    },
-    {
-        path: "/view/:id",
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "view/:id",
         element: (
-            <ProtectedRoute>
-                <ViewPlan />
-            </ProtectedRoute>
-        )
-    },
-    {
-        path: "/auth",
+          <ProtectedRoute>
+            <ViewPlan />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "auth",
         element: (
-            <AuthRoute>
-                <AuthPage />
-            </AuthRoute>
-        )
-    },
-    {
-        path: "/dashboard",
+          <AuthRoute>
+            <AuthPage />
+          </AuthRoute>
+        ),
+      },
+      {
+        path: "dashboard",
         element: (
-            <ProtectedRoute>
-                <Dashboard />
-            </ProtectedRoute>
-        )
-    },
-    {
-        path: "/input",
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "input",
         element: (
-            <ProtectedRoute>
-                <InputFields />
-            </ProtectedRoute>
-        )
-    },
-    {
-        path: "/edit",
+          <ProtectedRoute>
+            <InputFields />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "edit",
         element: (
-            <ProtectedRoute>
-                <EditPage />
-            </ProtectedRoute>
-                
-        )
-    }
-])
+          <ProtectedRoute>
+            <EditPage />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+]);
 
 export default router;
