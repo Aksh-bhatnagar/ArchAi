@@ -13,8 +13,7 @@ export default function AuthPage() {
     <>
     <Toaster 
      duration={2000}  
-     position="top-right"
-     
+     position="bottom-right"
             />
       <Navbar
         mode={mode}

@@ -15,30 +15,29 @@ export default function DeleteModal({ onClose }: Props) {
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleDelete = async () => {
-    if (!password) {
-      toast.error("Please enter your password")
-      return
-    }
-
-    try {
-      setLoading(true)
-
-      await api.delete("/users/delete-account", {
-        data: { password }
-      })
-
-      toast.success("Account deleted successfully")
-
-      navigate("/auth")
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message || "Failed to delete account"
-      )
-    } finally {
-      setLoading(false)
-    }
+const handleDelete = async () => {
+  if (!password) {
+    toast.error("Please enter your password")
+    return
   }
+
+  try {
+    setLoading(true)
+
+    await api.post("/users/delete-account", {
+      password
+    })
+
+    toast.success("Account deleted successfully")
+    navigate("/auth")
+  } catch (error: any) {
+    toast.error(
+      error?.response?.data?.message || "Failed to delete account"
+    )
+  } finally {
+    setLoading(false)
+  }
+}
 
   return (
     <div className="absolute top-0 h-screen w-screen z-25 flex justify-center items-center backdrop-blur-xs">
