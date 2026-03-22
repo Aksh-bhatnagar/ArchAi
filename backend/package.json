@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "dev": "node --env-file=.env src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+"scripts": {
+  "start": "node src/index.js"
+},
   "keywords": [],
   "author": "Aksh",
   "license": "ISC",
