@@ -29,57 +29,139 @@ const generator = asyncHandler(async (req, res) => {
 
 
     const prompt =
-        `You are an architectural floorplan generator. 
-Using ONLY the JSON data below, generate a COMPLETE, VALID SVG floorplan.
+        `You are a deterministic architectural SVG generator.
 
-JSON Input:
+You MUST follow ONE fixed SVG structure. NO creativity.
+
+========================
+INPUT
+========================
 ${JSON.stringify(propertyData, null, 2)}
 
 ========================
-MANDATORY SVG RULES
+GLOBAL RULES
 ========================
 
-1. OUTPUT FORMAT:
-- Output ONLY raw SVG.
-- Must start with <svg ...> and end with </svg>.
-- NO markdown, NO code blocks, NO explanations, NO text outside SVG.
+1. OUTPUT:
+- ONLY raw SVG
+- NO explanations
+- NO comments
+- NO <style>, NO <defs>
+- ONLY inline attributes
 
-2. PLOT:
-- Use plot.width and plot.length from JSON.
-- Scale: 1 foot = 10 pixels.
-- Convert plot.width → width_px and plot.length → height_px.
+2. SCALE:
+1 foot = 10 pixels
 
-3. ROOMS (AUTO-CALCULATE):
-Based on JSON:
-- house.living
-- house.kitchen
-- house.bedroom
-- house.bathroom
+3. SVG ROOT:
+<svg viewBox="0 0 W H" xmlns="http://www.w3.org/2000/svg">
 
-You must:
-- Auto-generate room sizes based on available area.
-- Fit all rooms inside the plot boundary.
-- Draw internal walls as thick solid lines.
-- Add doors (wall gaps + simple arc).
-- Add windows (thin double-lines).
+W = plot.width*10 + 20  
+H = plot.length*10 + 20  
 
-4. LABELS:
-Each room MUST have centered text:
-"ROOM NAME (estimated_width' x estimated_height')"
+4. ALWAYS USE THESE ELEMENT TYPES ONLY:
+- <rect> → rooms + plot
+- <line> → walls
+- <path> → doors ONLY (arc)
+- <text> → labels
 
-5. VIEWBOX:
-Set:
-viewBox="0 0 {plot.width*10 + 20} {plot.length*10 + 20}"
+DO NOT use:
+- <defs>
+- <style>
+- <g> (except north arrow)
+- random classes
 
-6. NORTH INDICATOR:
-Place a clear North arrow in the top-right corner.
+========================
+DRAWING RULES
+========================
 
-7. VALIDITY CHECK:
-Your output MUST contain:
-- <rect> OR <line> OR <path>
-If not, regenerate until the SVG is fully drawn.
+PLOT:
+- One outer rect (light stroke)
 
-8. NEVER RETURN EMPTY SVG.
+HOUSE:
+- One outer rect (black thick stroke)
+
+ROOMS:
+- Each room MUST be a <rect>
+- Must NOT overlap
+- Must fit inside house
+- Must have label centered
+
+WALLS:
+- Internal walls = <line stroke-width="2">
+
+========================
+DOORS (CRITICAL)
+========================
+
+Each room MUST have AT LEAST ONE DOOR.
+
+Door = 2 parts:
+1. Wall gap (missing line segment)
+2. Arc:
+<path d="M x y A 30 30 0 0 1 x y" stroke="black" fill="none"/>
+
+- Door width = 30px (3 ft)
+- MUST connect rooms logically
+- EVERY room must be reachable from Living room
+
+========================
+WINDOWS
+========================
+
+Window = EXACTLY TWO PARALLEL LINES
+
+Example:
+<line x1="" y1="" x2="" y2="" stroke="black" stroke-width="1"/>
+<line x1="" y1="" x2="" y2="" stroke="black" stroke-width="1"/>
+
+- Place at least ONE window per room
+- MUST be on outer walls ONLY
+
+========================
+LABELS
+========================
+
+Format EXACTLY:
+ROOM_NAME (W' x H')
+
+Centered using:
+text-anchor="middle"
+dominant-baseline="middle"
+
+========================
+NORTH ARROW
+========================
+
+Top-right corner ONLY:
+
+<g transform="translate(W-40,40)">
+  <line x1="0" y1="0" x2="0" y2="20" stroke="black"/>
+  <path d="M -5 5 L 0 0 L 5 5 Z" fill="black"/>
+  <text x="0" y="30" font-size="10" text-anchor="middle">N</text>
+</g>
+
+========================
+VALIDATION (MANDATORY)
+========================
+
+Before output, ENSURE:
+
+✔ At least 1 <rect>
+✔ At least 4 rooms
+✔ Every room has:
+   - 1 door
+   - 1 window
+✔ All rooms connected via doors
+✔ No zero-length lines
+✔ No overlapping rooms
+
+If ANY rule fails → REGENERATE
+
+========================
+FINAL OUTPUT
+========================
+
+Return ONLY SVG
 `
 
 

@@ -9,6 +9,7 @@ import InputFields from "./components/fields/InputFields.tsx";
 import ViewPlan from "./components/viewPlan/ViewPlan.tsx";
 import EditPage from "./components/auth/EditPage.tsx";
 import AuthRoute from "./components/commons/AuthRoute.tsx";
+import NotFound from "./components/commons/NotFound.tsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+  path: "*",
+  element: <NotFound />,
+}
 ]);
 
 export default router;
