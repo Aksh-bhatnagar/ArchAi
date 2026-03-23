@@ -6,11 +6,11 @@ const app = express()
 
 
 app.use(cors({
-  origin: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  origin: "https://arch-ai-git-main-akshbhatnagar2111-9661s-projects.vercel.app",
   credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-}));
+  methods: ["GET","POST","PUT","PATCH","DELETE"],
+  allowedHeaders: ["Content-Type","Authorization"]
+}))
 app.use(express.json({limit: '16kb'}))
 app.use(express.urlencoded({extended: true, limit: '16kb'}))
 app.use(express.static("public"))
