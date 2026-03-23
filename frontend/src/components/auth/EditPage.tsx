@@ -1,4 +1,4 @@
-import { User, Trash2, LogOut, Edit, WandIcon } from "lucide-react";
+import { User, Trash2, LogOut, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,

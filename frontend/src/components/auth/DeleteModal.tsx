@@ -3,7 +3,7 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import api from "@/api/api"
 import { toast } from "sonner"
-import { Loader2, X } from "lucide-react"
+import { Loader2} from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 type Props = {

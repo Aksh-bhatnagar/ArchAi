@@ -67,11 +67,11 @@ const registerUser = asyncHandler( async (req, res) => {
     const { accessToken, refreshToken } =
     await generateAccessAndRefreshTokens(createdUser._id);
 
-    const options = {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  };
+const options = {
+  httpOnly: true,
+  secure: true,   
+  sameSite: "none", 
+};
 
     return res
     .status(201)
@@ -112,11 +112,11 @@ const loginUser = asyncHandler( async(req, res) => {
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
-    const options = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-    }
+ const options = {
+  httpOnly: true,
+  secure: true,    
+  sameSite: "none",  
+};
 
     return res
     .status(200)
@@ -148,10 +148,10 @@ const logoutUser = asyncHandler(async (req,res) => {
     )
 
     const options = {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-    }
+  httpOnly: true,
+  secure: true,   
+  sameSite: "none",
+};
 
     return res
     .status(200)

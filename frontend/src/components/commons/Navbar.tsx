@@ -1,10 +1,7 @@
 import { LucideUserCircle } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProfileModal from "./ProfileModal";
-import api from "@/api/api";
-import { useDispatch } from "react-redux";
-import { setUser } from "@/redux/userSlice";
 
 type Props = {
   mode: "login" | "signup" | "";
