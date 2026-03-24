@@ -5,6 +5,8 @@ import api from "@/api/api"
 import { toast } from "sonner"
 import { Loader2} from "lucide-react"
 import { useNavigate } from "react-router-dom"
+import { setUser } from "@/redux/userSlice"
+import { useDispatch } from "react-redux"
 
 type Props = {
   onClose: (value: boolean) => void
@@ -14,6 +16,7 @@ export default function DeleteModal({ onClose }: Props) {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
 const handleDelete = async () => {
   if (!password) {
@@ -24,11 +27,14 @@ const handleDelete = async () => {
   try {
     setLoading(true)
 
-    await api.post("/users/delete-account", {
-      password
-    })
+    await api.post("/users/delete-account", { password })
+
+    dispatch(setUser(null))
+
     toast.success("Account deleted successfully")
-    navigate("/")
+
+    navigate("/auth")
+
   } catch (error: any) {
     toast.error(
       error?.response?.data?.message || "Failed to delete account"
