@@ -19,7 +19,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
     }
 }
 
-const registerUser = asyncHandler( async (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     // get user details from frontend
     // validation - not empty 
     // check if your already exist: username,email
@@ -27,7 +27,7 @@ const registerUser = asyncHandler( async (req, res) => {
     // remove password and refresh token field from response
     // check for user creation
     // return res
-    const {firstname, lastname, password, email} = req.body
+    const { firstname, lastname, password, email } = req.body
 
     // if (
     //     [firstname, email, password].some((field) => field?.trim() === "")
@@ -54,49 +54,50 @@ const registerUser = asyncHandler( async (req, res) => {
     const user = await User.create({
         firstname,
         lastname,
-        email,  
+        email,
         password,
     })
 
     const createdUser = await User.findById(user._id).select("-password");
-    
+
     if (!createdUser) {
         throw new ApiError(500, "something went wrong while registering user")
     }
 
     const { accessToken, refreshToken } =
-    await generateAccessAndRefreshTokens(createdUser._id);
+        await generateAccessAndRefreshTokens(createdUser._id);
 
-const options = {
-  httpOnly: true,
-  secure: true,   
-  sameSite: "none", 
-};
+    const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    };
 
     return res
-    .status(201)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)         
-    .json(
-        new ApiResponse(200, createdUser, "User registered successfully")
-    )
-} )
+        .status(201)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(200, createdUser, "User registered successfully")
+        )
+})
 
-const loginUser = asyncHandler( async(req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
     // req body -> data
     // email
     // find the user
     // password check
     // access and refresh token
     // send cookie
-    
-    const {email, password} = req.body
+
+    const { email, password } = req.body
 
     if (!email) {
         throw new ApiError(400, "email is required")
     }
 
-    const user = await User.findOne({email})
+    const user = await User.findOne({ email })
 
     if (!user) {
         throw new ApiError(404, "User does not exist")
@@ -108,33 +109,34 @@ const loginUser = asyncHandler( async(req, res) => {
         throw new ApiError(401, "Invalid user credentials")
     }
 
-    const {accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
- const options = {
-  httpOnly: true,
-  secure: true,    
-  sameSite: "none",  
-};
+    const options = {
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    };
 
     return res
-    .status(200)
-    .cookie("accessToken", accessToken, options)
-    .cookie("refreshToken", refreshToken, options)
-    .json(
-        new ApiResponse(
-            200,
-            {
-                user: loggedInUser, accessToken, refreshToken
-            },
-            "User logged In Successfully"
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: loggedInUser, accessToken, refreshToken
+                },
+                "User logged In Successfully"
+            )
         )
-    )
 
 })
 
-const logoutUser = asyncHandler(async (req,res) => {
+const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -148,18 +150,19 @@ const logoutUser = asyncHandler(async (req,res) => {
     )
 
     const options = {
-  httpOnly: true,
-  secure: true,   
-  sameSite: "none",
-};
+        httpOnly: true,
+        secure: true,
+        sameSite: "none",
+        maxAge: 7 * 24 * 60 * 60 * 1000
+    };
 
     return res
-    .status(200)
-    .clearCookie("accessToken", options)
-    .clearCookie("refreshToken", options)
-    .json(
-        new ApiResponse(200, {}, "User logged out Successfully")
-    )
+        .status(200)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
+        .json(
+            new ApiResponse(200, {}, "User logged out Successfully")
+        )
 })
 
 const changeCurrentPassword = asyncHandler(async (req, res) => {
@@ -187,12 +190,12 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 
 const getCurrentUser = asyncHandler(async (req, res) => {
     return res.status(200)
-    .json(new ApiResponse(200, req.user, "Current user fetched Successfully"))
+        .json(new ApiResponse(200, req.user, "Current user fetched Successfully"))
 })
 
-const updateAccountDetails = asyncHandler(async(req, res) => {
-    const {firstname, lastname} = req.body
-    
+const updateAccountDetails = asyncHandler(async (req, res) => {
+    const { firstname, lastname } = req.body
+
     if (!firstname) {
         throw new ApiError(400, "All fields are required")
     }
@@ -205,14 +208,14 @@ const updateAccountDetails = asyncHandler(async(req, res) => {
                 lastname: lastname
             }
         },
-        {new: true}
+        { new: true }
     ).select("-password")
 
-    await user.save({validateBeforeSave: false})
+    await user.save({ validateBeforeSave: false })
 
     return res
-    .status(200)
-    .json(new ApiResponse(200, user, "Account details updated successfully"))
+        .status(200)
+        .json(new ApiResponse(200, user, "Account details updated successfully"))
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
@@ -238,9 +241,9 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-    }
+        secure: true,
+        sameSite: "none",
+    };
 
     return res
         .status(200)

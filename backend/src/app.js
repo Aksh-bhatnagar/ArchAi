@@ -4,6 +4,7 @@ import cors from 'cors'
 
 const app = express()
 
+app.set("trust proxy", 1);
 
 app.use(cors({
   origin: "https://arch-ai-git-main-akshbhatnagar2111-9661s-projects.vercel.app",
