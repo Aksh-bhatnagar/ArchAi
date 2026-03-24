@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/redux/store";
 import { clearUser } from "@/redux/userSlice";
+import { resetFloorplans } from "@/redux/floorplanSlice";
 
 export default function ProfileModal({
   closeModal,
@@ -19,6 +20,7 @@ export default function ProfileModal({
     try {
       await api.post("/users/logout");
       dispatch(clearUser());
+      dispatch(resetFloorplans());
       closeModal();
       navigate("/");
     } catch (err) {

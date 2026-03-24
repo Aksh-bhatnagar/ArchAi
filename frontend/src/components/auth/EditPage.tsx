@@ -21,6 +21,7 @@ import ChangePassModal from "./ChangePass";
 import DeleteModal from "./DeleteModal";
 import { clearUser } from "@/redux/userSlice";
 import { useDispatch } from "react-redux";
+import { resetFloorplans } from "@/redux/floorplanSlice";
 
 export default function EditPage() {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -34,6 +35,7 @@ export default function EditPage() {
     try {
       await api.post("/users/logout");
       dispatch(clearUser());
+      dispatch(resetFloorplans());
       navigate("/");
     } catch (err) {
       console.log("logout Failed", err);

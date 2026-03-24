@@ -14,17 +14,20 @@ export default function Dashboard() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-const { data: floorplans, loading, fetched } = useSelector(
+const { data: floorplans, loading } = useSelector(
   (state: RootState) => state.floorplans
 );
+const user = useSelector((state: RootState) => state.user.user);
 
   const handleCreate = () => {
     navigate("/input");
   };
 
 useEffect(() => {
-  if (!fetched) dispatch(fetchFloorplans());
-}, [fetched, dispatch]);
+  if (user) {
+    dispatch(fetchFloorplans());
+  }
+}, [user, dispatch]);
 
   return (
     <>

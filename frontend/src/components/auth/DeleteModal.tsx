@@ -27,9 +27,8 @@ const handleDelete = async () => {
     await api.post("/users/delete-account", {
       password
     })
-
     toast.success("Account deleted successfully")
-    navigate("/auth")
+    navigate("/")
   } catch (error: any) {
     toast.error(
       error?.response?.data?.message || "Failed to delete account"

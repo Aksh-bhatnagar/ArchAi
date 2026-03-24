@@ -36,9 +36,14 @@ const floorplanSlice = createSlice({
 
   const plan = state.data.find(p => p._id === id);
 
-  if (plan) {
-    plan.projectName = name;
-  }
+   if (plan) {
+     plan.projectName = name;
+   }
+  },
+  resetFloorplans: (state) => {
+  state.data = [];
+  state.loading = false;
+  state.fetched = false;
 }
 
   },
@@ -56,7 +61,8 @@ const floorplanSlice = createSlice({
         state.loading = false;
       });
   },
+  
 });
 
 export default floorplanSlice.reducer;
-export const { addFloorplan, removeFloorplan, renameFloorplan } = floorplanSlice.actions;
+export const { addFloorplan, removeFloorplan, renameFloorplan, resetFloorplans } = floorplanSlice.actions;
