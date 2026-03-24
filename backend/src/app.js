@@ -7,7 +7,7 @@ const app = express()
 app.set("trust proxy", 1);
 
 app.use(cors({
-  origin: "https://arch-ai-git-main-akshbhatnagar2111-9661s-projects.vercel.app",
+  origin: "https://arch-ai-eight.vercel.app",
   credentials: true,
   methods: ["GET","POST","PUT","PATCH","DELETE"],
   allowedHeaders: ["Content-Type","Authorization"]
