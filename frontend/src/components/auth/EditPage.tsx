@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
 import ChangePassModal from "./ChangePass";
 import DeleteModal from "./DeleteModal";
+import { clearUser } from "@/redux/userSlice";
+import { useDispatch } from "react-redux";
 
 export default function EditPage() {
   const [deleteModal, setDeleteModal] = useState(false);
@@ -26,11 +28,13 @@ export default function EditPage() {
   const [changepassModal, setchangepassModal] = useState(false);
   const user = useSelector((state: RootState) => state.user.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = async () => {
     try {
       await api.post("/users/logout");
-      navigate("/auth");
+      dispatch(clearUser());
+      navigate("/");
     } catch (err) {
       console.log("logout Failed", err);
       toast.message("Logout Failed");
