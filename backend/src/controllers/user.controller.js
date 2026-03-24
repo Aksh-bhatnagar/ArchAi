@@ -71,6 +71,7 @@ const registerUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000
     };
 
@@ -117,6 +118,7 @@ const loginUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000
     };
 
@@ -153,6 +155,7 @@ const logoutUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
         maxAge: 7 * 24 * 60 * 60 * 1000
     };
 
@@ -243,6 +246,7 @@ const deleteUser = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        path: "/",
     };
 
     return res
