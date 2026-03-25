@@ -43,7 +43,7 @@ useEffect(() => {
                 "Design Smart Floor Plans",
                 "AI-Powered Layouts",
                 "Optimized Homes",
-                "Vastu-Aligned Designs",
+                "Modern Design Solutions",
               ]}
               loop={0}
               cursor
