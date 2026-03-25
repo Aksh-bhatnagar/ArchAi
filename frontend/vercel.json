@@ -3,10 +3,6 @@
     {
       "src": "/api/(.*)",
       "dest": "https://archai-mvkf.onrender.com/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
     }
-  ] 
+  ]
 }
