@@ -8,5 +8,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ] 
 }
