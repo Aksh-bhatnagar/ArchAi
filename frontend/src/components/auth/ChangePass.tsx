@@ -65,10 +65,6 @@ export default function DeleteModal({ onClose }: DeleteModalProps) {
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </span>
           </div>
-
-          <p className="text-xs text-rose-400 mt-3">
-            This action is permanent. Your account will be deleted.
-          </p>
         </div>
 
         <div className="flex justify-between">
