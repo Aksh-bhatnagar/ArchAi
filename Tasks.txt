@@ -1,2 +1,0 @@
-1. errors for auth
-2. move to homepage
