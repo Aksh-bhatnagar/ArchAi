@@ -25,7 +25,7 @@ useEffect(() => {
     }
   };
 
-  setTimeout(restoreUser, 50); 
+  restoreUser(); 
 }, [dispatch]);
 
   return <Outlet />;
