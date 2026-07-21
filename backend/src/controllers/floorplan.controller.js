@@ -19,6 +19,8 @@ const generator = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Please fill property data")
     }
 
+    console.log("clicked");
+
     const userId = req.user._id; // from verifyJWT middleware
 
     const floorplan = await Floorplan.create({
